@@ -8,22 +8,25 @@
 </head>
 <body>
 
-<!-- 三个独立播放键，各自定位，无任何外框和文字 -->
-<button class="play-btn play-btn-1" data-track="0" aria-label="播放 sho 1314">
-    <span class="play-icon"></span>
-</button>
-<button class="play-btn play-btn-2" data-track="1" aria-label="播放 sho shuita">
-    <span class="play-icon"></span>
-</button>
-<button class="play-btn play-btn-3" data-track="2" aria-label="播放 sho shenme">
-    <span class="play-icon"></span>
-</button>
+<!-- 背景图容器（包含背景图 + 播放键） -->
+<div class="bg-container">
+    <!-- 三个独立播放键，位置相对于背景图固定 -->
+    <button class="play-btn play-btn-1" data-track="0" aria-label="播放 sho 1314">
+        <span class="play-icon"></span>
+    </button>
+    <button class="play-btn play-btn-2" data-track="1" aria-label="播放 sho shuita">
+        <span class="play-icon"></span>
+    </button>
+    <button class="play-btn play-btn-3" data-track="2" aria-label="播放 sho shenme">
+        <span class="play-icon"></span>
+    </button>
+</div>
 
 <div class="error-tip" id="audioErrorTip"></div>
 
 <script>
     (function() {
-        // 音频文件配置（文件名包含空格）
+        // 音频文件配置（请确保 voice 文件夹下有这三个文件）
         const rawNames = ['sho 1314', 'sho shuita', 'sho shenme'];
         const audioFiles = rawNames.map(name => `voice/${encodeURIComponent(name)}.mp3`);
 
@@ -62,7 +65,6 @@
             const filePath = audioFiles[index];
             const displayName = rawNames[index];
 
-            // 同一按钮重新播放
             if (currentAudio && currentPlayingButton === buttonElement) {
                 currentAudio.pause();
                 currentAudio.currentTime = 0;
@@ -75,7 +77,7 @@
             stopCurrentPlayback(true);
 
             const audio = new Audio(filePath);
-            audio.preload = 'auto';
+            audio.preload = 'none';   // 提升加载速度，不预加载
 
             audio.addEventListener('error', () => {
                 showError(`🔇 加载失败: ${displayName}.mp3 请检查 voice/ 文件夹`);
@@ -102,7 +104,6 @@
             });
         }
 
-        // 绑定三个独立按钮
         const btn1 = document.querySelector('.play-btn-1');
         const btn2 = document.querySelector('.play-btn-2');
         const btn3 = document.querySelector('.play-btn-3');
