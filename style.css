@@ -8,7 +8,7 @@
 body {
     /* 背景图完整显示，不裁剪 */
     background-image: url('./image/shotaro.png');
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
