@@ -7,6 +7,8 @@
 
 /* 容器负责滚动，让完整图片可见 */
 .image-container {
+    display: flex;
+    flex-direction: column;
     position: relative;
     width: 100%;
     min-height: 100vh;
